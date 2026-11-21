@@ -1,0 +1,24 @@
+{
+  "name": "toystorey",
+  "version": "1.0.0",
+  "description": "Project UAS Pemrograman Dasar - ToyStorey",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MuhamadIqbal-web/ToyStorey.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MuhamadIqbal-web/ToyStorey/issues"
+  },
+  "homepage": "https://github.com/MuhamadIqbal-web/ToyStorey#readme",
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "typescript": "^7.0.2"
+  }
+}
