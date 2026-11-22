@@ -74,13 +74,14 @@ Mencari data transaksi berdasarkan ID Transaksi, Nama Pembeli, atau filter Kateg
 C. Rencana Pengembangan Project
 
 Pengembangan project dilakukan melalui beberapa tahapan:
+1. Persiapan repository public dan konfigurasi awal TypeScript (.gitignore, tsconfig.json, package.json, src/index.ts).
+2. Penyusunan proposal, analisis permasalahan, serta draft awal laporan (Sampul, Sub-bab 1.1, 1.2, dan rencana 3.2) di folder docs/.
+3. Perancangan struktur data (interface/type TransaksiMainan) dan alur logika program (decomposition).
+4. Implementasi fitur CRUD + Search serta integrasi logika perhitungan kasir (diskon, member, dan biaya kado) dari versi UTS.
+5. Pengujian dan evaluasi program pada seluruh skenario input dan validasi.
+6. Penyusunan dokumentasi akhir dan laporan UAS.
 
-Persiapan repository public dan konfigurasi awal TypeScript (.gitignore, tsconfig.json, package.json, src/index.ts).
-Penyusunan proposal, analisis permasalahan, serta draft awal laporan (Sampul, Sub-bab 1.1, 1.2, dan rencana 3.2) di folder docs/.
-Perancangan struktur data (interface/type TransaksiMainan) dan alur logika program (decomposition).
-Implementasi fitur CRUD + Search serta integrasi logika perhitungan kasir (diskon, member, dan biaya kado) dari versi UTS.
-Pengujian dan evaluasi program pada seluruh skenario input dan validasi.
-Penyusunan dokumentasi akhir dan laporan UAS.
+
 D. Progress Pengerjaan
 Progress 1
 [ ] Membuat repository GitHub dengan visibilitas Public.
