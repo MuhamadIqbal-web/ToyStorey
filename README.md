@@ -59,7 +59,9 @@ Action Figure	Iron Man	Rp 145.000
 Action Figure	Batman	Rp 120.000
 Remote Control	Mobil	Rp 75.000
 Remote Control	Helikopter	Rp 150.000
+
 3. Daftar Fitur Utama (CRUD + Search) & Decomposition Awal
+   
 Create (Tambah Transaksi Penjualan):
 Menerima input nama pembeli, status pembeli, kategori mainan, pilihan mainan, jumlah barang, dan opsi bungkus kado.
 Menjalankan sub-proses penentuan harga satuan, perhitungan subtotal, penentuan diskon (10% atau 7% Member), biaya kado, dan total bayar secara otomatis, lalu menyimpan transaksi ke dalam daftar/array dan mencetak struk.
@@ -71,6 +73,7 @@ Delete (Hapus / Batalkan Transaksi):
 Menghapus data transaksi berdasarkan idTransaksi apabila terjadi pembatalan oleh pembeli (disertai konfirmasi sebelum menghapus).
 Search (Cari Transaksi):
 Mencari data transaksi berdasarkan ID Transaksi, Nama Pembeli, atau filter Kategori Mainan (LEGO / Action Figure / Remote Control).
+
 C. Rencana Pengembangan Project
 
 Pengembangan project dilakukan melalui beberapa tahapan:
