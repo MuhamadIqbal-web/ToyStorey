@@ -3,8 +3,8 @@ Project UAS Pemrograman Dasar - ToyStorey
 
 # Sistem Kasir Toko Mainan "Toy Storey" (CLI)
 
-*Kelas / Kelompok:* T1B / Kelompok-8ASIK 
-*Link Repository:* https://github.com
+*Kelas / Kelompok:* T1B / Kelompok-6 
+*Link Repository:* https://github.com/MuhamadIqbal-web/ToyStorey
 *Mata Kuliah:* Pemrograman Dasar  
 *Tahun Akademik:* 2026/2027  
 
