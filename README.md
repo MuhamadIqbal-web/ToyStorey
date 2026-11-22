@@ -1,7 +1,7 @@
 # ToyStorey
 Project UAS Pemrograman Dasar - ToyStorey
 
-# Sistem Kasir Tiket Konser Musik "Nikmati Suara" (CLI)
+# Sistem Kasir Toko Mainan "Toy Storey" (CLI)
 
 *Kelas / Kelompok:* T1B / Kelompok-8ASIK 
 *Link Repository:* https://github.com
