@@ -35,6 +35,10 @@ let nomorIdBerikutnya: number = 17;
 
 // ==================== BAGIAN 3: FUNGSI TAMPIL ====================
 // Fungsi void: hanya menampilkan ke layar, tidak mengembalikan nilai
+// Fungsi dengan parameter dan return: mengubah angka 80000 menjadi teks "Rp80.000"
+function formatRupiah(angka: number): string {
+    return "Rp" + angka.toLocaleString("id-ID"); // toLocaleString("id-ID") memberi titik pemisah ribuan
+}
 function tampilDaftarMainan(): void {
     console.log("\n========== DAFTAR MAINAN ==========");
     // for...of: ulangi sekali untuk setiap mainan di dalam array
@@ -45,7 +49,7 @@ function tampilDaftarMainan(): void {
             tandaPromo = " (PROMO)";
         }
         console.log(
-            `${mainan.idMainan} | ${mainan.namaMainan.padEnd(20)} | Rp${mainan.harga.toLocaleString("id-ID")}${tandaPromo}`
+            `${mainan.idMainan} | ${mainan.namaMainan.padEnd(20)} | ${formatRupiah(mainan.harga)}${tandaPromo}`
         );
     }
     console.log(`Total: ${daftarMainan.length} mainan`);
