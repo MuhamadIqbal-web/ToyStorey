@@ -34,11 +34,12 @@ const daftarMainan: Mainan[] = [
 let nomorIdBerikutnya: number = 17;
 
 // ==================== BAGIAN 3: FUNGSI TAMPIL ====================
-// Fungsi void: hanya menampilkan ke layar, tidak mengembalikan nilai
 // Fungsi dengan parameter dan return: mengubah angka 80000 menjadi teks "Rp80.000"
 function formatRupiah(angka: number): string {
     return "Rp" + angka.toLocaleString("id-ID"); // toLocaleString("id-ID") memberi titik pemisah ribuan
 }
+
+// Fungsi void: hanya menampilkan ke layar, tidak mengembalikan nilai
 function tampilDaftarMainan(): void {
     console.log("\n========== DAFTAR MAINAN ==========");
     // for...of: ulangi sekali untuk setiap mainan di dalam array
@@ -54,11 +55,6 @@ function tampilDaftarMainan(): void {
     }
     console.log(`Total: ${daftarMainan.length} mainan`);
 }
-
-// ==================== BAGIAN 4: PROGRAM UTAMA ====================
-console.log("Selamat Datang di TOY STOREY!");
-tampilDaftarMainan();
-console.log(`ID berikutnya yang akan dipakai: M-${String(nomorIdBerikutnya).padStart(3, "0")}`);
 
 // ==================== BAGIAN 4: ALAT BANTU INPUT ====================
 // Fungsi dengan parameter dan return: menampilkan pertanyaan, lalu mengembalikan jawaban (string)
