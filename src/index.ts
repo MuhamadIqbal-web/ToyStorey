@@ -1,4 +1,5 @@
 import * as readline from "readline-sync";
+
 // ==================== BAGIAN 1: TIPE DATA ====================
 // interface = "cetakan" yang menentukan properti apa saja yang dimiliki sebuah data Mainan
 interface Mainan {
@@ -8,7 +9,19 @@ interface Mainan {
     promo: boolean;     // true = mainan promo (otomatis diskon 10%)
 }
 
+//BRANCH: feature/transaksi
+// Cetakan untuk satu baris barang di keranjang belanja saat transaksi
+interface ItemKeranjang {
+    idMainan: string;     // kode mainan yang dibeli
+    namaMainan: string;   // nama mainan (diambil dari daftar mainan)
+    hargaSatuan: number;  // harga satuan (diambil dari daftar mainan)
+    jumlahBarang: number; // jumlah yang dibeli
+    subTotal: number;     // hargaSatuan x jumlahBarang
+    promo: boolean;       // true jika mainan ini termasuk promo
+}
+
 // ==================== BAGIAN 2: DATA AWAL (SEED) ====================
+// [BRANCH: feature/struktur-data]
 // const dipakai karena "kotak" array-nya tidak diganti, hanya isinya yang akan bertambah/berkurang
 const daftarMainan: Mainan[] = [
     { idMainan: "M-001", namaMainan: "Lego Batman", harga: 80000, promo: false },
@@ -33,71 +46,80 @@ const daftarMainan: Mainan[] = [
 // (pakai penghitung sendiri supaya ID tidak kembar walaupun ada mainan yang dihapus)
 let nomorIdBerikutnya: number = 17;
 
+// [BRANCH: feature/transaksi]
+// Nilai-nilai tetap aturan transaksi (const karena tidak pernah berubah)
+const BIAYA_BUNGKUS_KADO: number = 10000;     // biaya bungkus kado (Rp)
+const BATAS_SUBTOTAL_DISKON: number = 120000; // subtotal di atas ini mendapat diskon 10%
+const DISKON_BESAR: number = 0.1;             // diskon 10% (subtotal > 120.000 atau ada mainan promo)
+const DISKON_MEMBER: number = 0.07;           // diskon 7% khusus Member
+
+// [BRANCH: feature/struktur-data]
+// Fungsi dengan parameter dan return: mencari posisi (indeks) mainan di array berdasarkan ID
+// Mengembalikan -1 jika ID tidak ditemukan
+function cariIndeksById(id: string): number {
+    const idCari: string = id.trim().toUpperCase(); // rapikan input: buang spasi dan jadikan huruf besar
+    // findIndex: menelusuri array sampai menemukan mainan dengan ID yang sama
+    return daftarMainan.findIndex((mainan) => mainan.idMainan === idCari);
+}
+
+// Fungsi dengan parameter dan return: membuat teks ID dari sebuah nomor, contoh 17 -> "M-017"
+function buatIdMainan(nomor: number): string {
+    return "M-" + String(nomor).padStart(3, "0"); // padStart melengkapi angka dengan 0 di depan
+}
+// Format Rupiah
 // ==================== BAGIAN 3: FUNGSI TAMPIL ====================
+// [BRANCH: feature/format-rupiah]
 // Fungsi dengan parameter dan return: mengubah angka 80000 menjadi teks "Rp80.000"
 function formatRupiah(angka: number): string {
     return "Rp" + angka.toLocaleString("id-ID"); // toLocaleString("id-ID") memberi titik pemisah ribuan
 }
 
+// Fungsi void: menampilkan SATU baris mainan (dipakai oleh daftar mainan dan hasil pencarian)
+function tampilBarisMainan(mainan: Mainan): void {
+    let tandaPromo: string = "";
+    // jika mainan promo, tambahkan label PROMO di belakang harga
+    if (mainan.promo) {
+        tandaPromo = " (PROMO)";
+    }
+    console.log(
+        `${mainan.idMainan} | ${mainan.namaMainan.padEnd(20)} | ${formatRupiah(mainan.harga)}${tandaPromo}`
+    );
+}
+
 // Fungsi void: hanya menampilkan ke layar, tidak mengembalikan nilai
 function tampilDaftarMainan(): void {
     console.log("\n========== DAFTAR MAINAN ==========");
+
+    // jika array kosong, beri tahu pengguna lalu hentikan fungsi
+    if (daftarMainan.length === 0) {
+        console.log("Daftar mainan kosong.");
+        return;
+    }
+
+    let nomorBaris: number = 0; // penghitung baris yang sudah ditampilkan
     // for...of: ulangi sekali untuk setiap mainan di dalam array
     for (const mainan of daftarMainan) {
-        let tandaPromo: string = "";
-        // jika mainan promo, tambahkan label PROMO di belakang harga
-        if (mainan.promo) {
-            tandaPromo = " (PROMO)";
+        tampilBarisMainan(mainan);
+        nomorBaris += 1; // compound: tambah 1 setiap selesai menampilkan satu baris
+        // % (sisa bagi): setiap kelipatan 5 baris diberi garis pemisah agar daftar mudah dibaca
+        if (nomorBaris % 5 === 0 && nomorBaris < daftarMainan.length) {
+            console.log("-".repeat(45));
         }
-        console.log(
-            `${mainan.idMainan} | ${mainan.namaMainan.padEnd(20)} | ${formatRupiah(mainan.harga)}${tandaPromo}`
-        );
     }
     console.log(`Total: ${daftarMainan.length} mainan`);
 }
+// Menu
 
-// ==================== BAGIAN 4: ALAT BANTU INPUT ====================
+// ==================== BAGIAN 4: ALAT BANTU INPUT & VALIDASI ====================
+// [BRANCH: feature/menu]
 // Fungsi dengan parameter dan return: menampilkan pertanyaan, lalu mengembalikan jawaban (string)
 function tanya(pertanyaan: string): string {
     const jawaban: string = readline.question(pertanyaan); // program berhenti di sini sampai pengguna menekan Enter
     return jawaban.trim(); // trim() membuang spasi di awal dan akhir jawaban
 }
 
-// ==================== BAGIAN 5: FITUR-FITUR (MASIH KERANGKA) ====================
-// Setiap fitur punya fungsi sendiri. Isinya diganti oleh anggota yang bertanggung jawab
-// pada branch masing-masing, supaya tidak bentrok saat digabung (merge).
-
-// ---------- Transaksi (Iqbal) ----------
-function prosesTransaksi(): void {
-    console.log("\n[Transaksi] Fitur ini belum dibuat.");
-}
-
-// ---------- Create Mainan (Ranu) ----------
-function tambahMainan(): void {
-    console.log("\n[Tambah Mainan] Fitur ini belum dibuat.");
-}
-
-// ---------- Read Mainan (Ranu) ----------
-function lihatMainan(): void {
-    tampilDaftarMainan(); // sementara: tampil semua saja, detail berdasarkan ID menyusul
-}
-
-// ---------- Update Mainan (Margareth) ----------
-function ubahMainan(): void {
-    console.log("\n[Ubah Mainan] Fitur ini belum dibuat.");
-}
-
-// ---------- Delete Mainan (Margareth) ----------
-function hapusMainan(): void {
-    console.log("\n[Hapus Mainan] Fitur ini belum dibuat.");
-}
-
-// ---------- Search Mainan (Iqbal) ----------
-function cariMainan(): void {
-    console.log("\n[Cari Mainan] Fitur ini belum dibuat.");
-}
-
-// ==================== BAGIAN 6: MENU ====================
+// ==================== BAGIAN 8: MENU ====================
+// [BRANCH: feature/menu]
 // Submenu Kelola Daftar Mainan: berulang sampai pengguna memilih 0 (Kembali)
 function menuKelolaMainan(): void {
     let kembali: boolean = false; // penanda: true kalau pengguna ingin kembali ke menu utama
@@ -168,12 +190,3 @@ function menuUtama(): void {
         }
     }
 }
-
-// ==================== BAGIAN 7: PROGRAM UTAMA ====================
-function main(): void {
-    console.log("Selamat Datang di TOY STOREY!");
-    menuUtama();
-    console.log("\nTerima kasih telah berbelanja di TOY STOREY. Sampai jumpa!");
-}
-
-main();
