@@ -139,19 +139,19 @@ function menuKelolaMainan(): void {
         // switch: memilih tindakan sesuai angka yang diketik
         switch (pilihan) {
             case "1":
-                tambahMainan();
+                console.log("Contoh tambah mainan");
                 break;
             case "2":
-                lihatMainan();
+                console.log("Contoh lihat mainan");
                 break;
             case "3":
-                ubahMainan();
+                console.log("Contoh ubah mainan");
                 break;
             case "4":
-                hapusMainan();
+                console.log("Contoh Hapus mainan");
                 break;
             case "5":
-                cariMainan();
+                console.log("Contoh cari mainan");
                 break;
             case "0":
                 kembali = true; // loop berhenti pada putaran berikutnya
@@ -177,7 +177,7 @@ function menuUtama(): void {
 
         switch (pilihan) {
             case "1":
-                prosesTransaksi();
+                console.log("Contoh Proses Transaksi");
                 break;
             case "2":
                 menuKelolaMainan();
