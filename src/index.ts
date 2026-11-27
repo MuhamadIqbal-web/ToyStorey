@@ -1,3 +1,5 @@
+import * as readline from "readline-sync";
+
 // ==================== BAGIAN 1: TIPE DATA ====================
 // interface = "cetakan" yang menentukan properti apa saja yang dimiliki sebuah data Mainan
 interface Mainan {
@@ -7,7 +9,19 @@ interface Mainan {
     promo: boolean;     // true = mainan promo (otomatis diskon 10%)
 }
 
+//BRANCH: feature/transaksi
+// Cetakan untuk satu baris barang di keranjang belanja saat transaksi
+interface ItemKeranjang {
+    idMainan: string;     // kode mainan yang dibeli
+    namaMainan: string;   // nama mainan (diambil dari daftar mainan)
+    hargaSatuan: number;  // harga satuan (diambil dari daftar mainan)
+    jumlahBarang: number; // jumlah yang dibeli
+    subTotal: number;     // hargaSatuan x jumlahBarang
+    promo: boolean;       // true jika mainan ini termasuk promo
+}
+
 // ==================== BAGIAN 2: DATA AWAL (SEED) ====================
+// [BRANCH: feature/struktur-data]
 // const dipakai karena "kotak" array-nya tidak diganti, hanya isinya yang akan bertambah/berkurang
 const daftarMainan: Mainan[] = [
     { idMainan: "M-001", namaMainan: "Lego Batman", harga: 80000, promo: false },
@@ -32,25 +46,23 @@ const daftarMainan: Mainan[] = [
 // (pakai penghitung sendiri supaya ID tidak kembar walaupun ada mainan yang dihapus)
 let nomorIdBerikutnya: number = 17;
 
-// ==================== BAGIAN 3: FUNGSI TAMPIL ====================
-// Fungsi void: hanya menampilkan ke layar, tidak mengembalikan nilai
-function tampilDaftarMainan(): void {
-    console.log("\n========== DAFTAR MAINAN ==========");
-    // for...of: ulangi sekali untuk setiap mainan di dalam array
-    for (const mainan of daftarMainan) {
-        let tandaPromo: string = "";
-        // jika mainan promo, tambahkan label PROMO di belakang harga
-        if (mainan.promo) {
-            tandaPromo = " (PROMO)";
-        }
-        console.log(
-            `${mainan.idMainan} | ${mainan.namaMainan.padEnd(20)} | Rp${mainan.harga.toLocaleString("id-ID")}${tandaPromo}`
-        );
-    }
-    console.log(`Total: ${daftarMainan.length} mainan`);
+// [BRANCH: feature/transaksi]
+// Nilai-nilai tetap aturan transaksi (const karena tidak pernah berubah)
+const BIAYA_BUNGKUS_KADO: number = 10000;     // biaya bungkus kado (Rp)
+const BATAS_SUBTOTAL_DISKON: number = 120000; // subtotal di atas ini mendapat diskon 10%
+const DISKON_BESAR: number = 0.1;             // diskon 10% (subtotal > 120.000 atau ada mainan promo)
+const DISKON_MEMBER: number = 0.07;           // diskon 7% khusus Member
+
+// [BRANCH: feature/struktur-data]
+// Fungsi dengan parameter dan return: mencari posisi (indeks) mainan di array berdasarkan ID
+// Mengembalikan -1 jika ID tidak ditemukan
+function cariIndeksById(id: string): number {
+    const idCari: string = id.trim().toUpperCase(); // rapikan input: buang spasi dan jadikan huruf besar
+    // findIndex: menelusuri array sampai menemukan mainan dengan ID yang sama
+    return daftarMainan.findIndex((mainan) => mainan.idMainan === idCari);
 }
 
-// ==================== BAGIAN 4: PROGRAM UTAMA ====================
-console.log("Selamat Datang di TOY STOREY!");
-tampilDaftarMainan();
-console.log(`ID berikutnya yang akan dipakai: M-${String(nomorIdBerikutnya).padStart(3, "0")}`);
+// Fungsi dengan parameter dan return: membuat teks ID dari sebuah nomor, contoh 17 -> "M-017"
+function buatIdMainan(nomor: number): string {
+    return "M-" + String(nomor).padStart(3, "0"); // padStart melengkapi angka dengan 0 di depan
+}
