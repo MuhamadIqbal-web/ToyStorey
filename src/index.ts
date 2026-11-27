@@ -190,4 +190,5 @@ function menuUtama(): void {
         }
     }
 }
+menuUtama();
 //Ini untuk fitur Create
